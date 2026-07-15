@@ -36,7 +36,7 @@ Untuk mencegah tabrakan data (*race condition*), pastikan kode Google Apps Scrip
 
 ## 🛡️ Keamanan
 
-* **Sistem Pengaman:** Ekstensi hanya akan berjalan pada halaman yang memiliki teks verifikasi login yang valid (contoh: "Login sebagai: ALVIN CS").
+* **Sistem Pengaman:** Ekstensi hanya akan berjalan pada halaman yang memiliki teks verifikasi login yang valid.
 * **Data Privasi:** Ekstensi tidak menyimpan kredensial login atau data sensitif lainnya di luar interaksi transaksi yang diperlukan.
 
 ## 📝 Catatan Perubahan (v1.4)
