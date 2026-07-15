@@ -76,7 +76,6 @@
 
     rows.forEach((row) => {
         let cells = row.querySelectorAll("td");
-        // Gunakan Optional Chaining (?.) untuk keamanan ekstra
         if (cells.length < 6) return;
 
         let tdNo = cells[1];
@@ -85,7 +84,7 @@
         let tdKeBank = cells[4];
         let tdWaktu = cells[5];
 
-        if (!tdUsername || !tdTotal || !tdKeBank || !tdWaktu) return; {
+        if (!tdUsername || !tdTotal || !tdKeBank || !tdWaktu) return;
                     let teksBankRaw = tdKeBank.innerText.trim().toUpperCase();
 
                     let apakahEwallet = teksBankRaw.includes("DANA") ||
