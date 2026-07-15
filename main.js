@@ -63,7 +63,7 @@
         });
     }
 
-    buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw e-Wallet...", "#17a2b8");
+    buatNotif("🔄<b>AUTO ON !!</b> Checking WD E-Wallet...", "#17a2b8");
 
     function jalankanAutopilot() {
         let rows = Array.from(document.querySelectorAll("table tbody tr")).filter(row => {
