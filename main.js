@@ -84,7 +84,7 @@
         let tdKeBank = cells[4];
         let tdWaktu = cells[5];
 
-        if (!tdUsername || !tdTotal || !tdKeBank || !tdWaktu) return; {
+        if (!tdUsername || !tdTotal || !tdKeBank || !tdWaktu) return;
                     let teksBankRaw = tdKeBank.innerText.trim().toUpperCase();
 
                     let apakahEwallet = teksBankRaw.includes("DANA") ||
