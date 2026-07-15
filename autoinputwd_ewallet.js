@@ -11,7 +11,7 @@
     if (!isAuthorized()) return; 
     // =========================================================================    
 
-    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbx6B1G5pPgvScv6l5WqjgkKmUQzY6RVAvOLz4jXR0cvrU3u_KA68OcFRpd0VM_KzjYfuA/exec";
+    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxndvNGr2WaclC8-zX5fqU2oTgRV3AC2rq8lUEiw9DrZKjihsidtKYkdLrwWrpS4Yb-Cw/exec";
     const diprosesSesiIni = new Set();
 
     let notifikasiAktif = [];
