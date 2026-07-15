@@ -1,4 +1,4 @@
-# Auto Input WD E-Wallet (Private Edition)
+# Auto Input WD E-Wallet (using at RAKAL)
 
 **Auto Input WD E-Wallet** adalah ekstensi peramban (*browser extension*) yang dirancang khusus untuk mengotomatiskan proses rekapitulasi data penarikan (*withdrawal*) dari panel target ke Google Sheets secara *real-time*.
 
