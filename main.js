@@ -13,12 +13,10 @@
 
     const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwTOg5RYUNW53TNB3hhjqF8UZ4cxgHKNVdAkNcNJA90X5b-kVsMQB11ehC2eFQxez7x-g/exec";
     const diprosesSesiIni = new Set();
-
     let notifikasiAktif = [];
 
     function buatNotif(pesan, warna = "#28a745") {
         let notif = document.createElement("div");
-        
         notif.style.position = "fixed";
         notif.style.left = "20px";
         notif.style.backgroundColor = warna;
@@ -31,17 +29,12 @@
         notif.style.boxShadow = "0px 4px 6px rgba(0,0,0,0.2)";
         notif.style.transition = "all 0.3s ease";
         notif.innerHTML = pesan;
-        
         document.body.appendChild(notif);
-
         notifikasiAktif.push(notif);
-
         susunUlangNotifikasi();
-
         setTimeout(() => {
             notif.style.opacity = "0";
             notif.style.transform = "translateX(-20px)";
-            
             setTimeout(() => {
                 notif.remove();
                 notifikasiAktif = notifikasiAktif.filter(n => n !== notif);
@@ -53,7 +46,6 @@
     function susunUlangNotifikasi() {
         let batasBawahMulai = 85;
         let celahAntarNotif = 10;
-
         notifikasiAktif.forEach((notif, index) => {
             let posisiBottom = batasBawahMulai;
             for (let i = index + 1; i < notifikasiAktif.length; i++) {
@@ -66,86 +58,82 @@
     buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw E-Wallet...", "#17a2b8");
 
     function jalankanAutopilot() {
-    // Tambahkan pengecekan tbody eksis
-    const tbody = document.querySelector("table tbody");
-    if (!tbody) return;
+        const tbody = document.querySelector("table tbody");
+        if (!tbody) return;
 
-    let rows = Array.from(tbody.querySelectorAll("tr")).filter(row => row.offsetParent !== null);
-    
-    if (rows.length === 0) return;
+        let rows = Array.from(tbody.querySelectorAll("tr")).filter(row => row.offsetParent !== null);
+        if (rows.length === 0) return;
 
-    rows.forEach((row) => {
-        let cells = row.querySelectorAll("td");
-        if (cells.length < 6) return;
+        let promises = []; // DEKLARASI INI PENTING
 
-        let tdNo = cells[1];
-        let tdUsername = cells[2];
-        let tdTotal = cells[3];
-        let tdKeBank = cells[4];
-        let tdWaktu = cells[5];
+        rows.forEach((row) => {
+            let cells = row.querySelectorAll("td");
+            if (cells.length < 6) return;
 
-        if (!tdUsername || !tdTotal || !tdKeBank || !tdWaktu) return;
-                    let teksBankRaw = tdKeBank.innerText.trim().toUpperCase();
+            let tdNo = cells[1];
+            let tdUsername = cells[2];
+            let tdTotal = cells[3];
+            let tdKeBank = cells[4];
+            let tdWaktu = cells[5];
 
-                    let apakahEwallet = teksBankRaw.includes("DANA") ||
-                                        teksBankRaw.includes("OVO") ||
-                                        teksBankRaw.includes("GOPAY") ||
-                                        teksBankRaw.includes("LINKAJA") ||
-                                        teksBankRaw.includes("SHOPEEPAY");
+            if (!tdUsername || !tdTotal || !tdKeBank || !tdWaktu) return;
 
-                    if (!apakahEwallet) return;
+            let teksBankRaw = tdKeBank.innerText.trim().toUpperCase();
+            let apakahEwallet = teksBankRaw.includes("DANA") ||
+                                teksBankRaw.includes("OVO") ||
+                                teksBankRaw.includes("GOPAY") ||
+                                teksBankRaw.includes("LINKAJA") ||
+                                teksBankRaw.includes("SHOPEEPAY");
 
-                    let adaTeksMerah = tdKeBank.querySelector("[style*='color: red']") ||
-                                       tdKeBank.querySelector("[style*='color: rgb(255, 0, 0)']") ||
-                                       window.getComputedStyle(tdKeBank).color === "rgb(255, 0, 0)";
+            if (!apakahEwallet) return;
 
-                    let bgUsername = window.getComputedStyle(tdUsername).backgroundColor;
-                    let apakahUsernamePink = bgUsername.includes("255") && bgUsername.includes("204") ||
-                                             tdUsername.querySelector("[style*='background']") !== null;
+            let adaTeksMerah = tdKeBank.querySelector("[style*='color: red']") ||
+                               tdKeBank.querySelector("[style*='color: rgb(255, 0, 0)']") ||
+                               window.getComputedStyle(tdKeBank).color === "rgb(255, 0, 0)";
 
-                    if (adaTeksMerah || apakahUsernamePink) {
-                        let idTransaksiMerah = tdUsername.innerText.trim() + "_" + tdWaktu.innerText.trim();
-                        if (!diprosesSesiIni.has(idTransaksiMerah)) {
-                            buatNotif("🛑 <b>WatchList :</b> ID " + tdUsername.innerText.trim() + " sedang di <b>TAHAN!</b>", "#dc3545");
-                            diprosesSesiIni.add(idTransaksiMerah);
-                        }
-                        return;
-                    }
+            let bgUsername = window.getComputedStyle(tdUsername).backgroundColor;
+            let apakahUsernamePink = bgUsername.includes("255") && bgUsername.includes("204") ||
+                                     tdUsername.querySelector("[style*='background']") !== null;
 
-                    let dataWD = {
-                        "target_sheet": "AUTOWDEWALLET",
-                        "no": tdNo ? tdNo.innerText.trim() : "",
-                        "username": tdUsername.innerText.trim(),
-                        "total": tdTotal.innerText.trim(),
-                        "ke_bank": tdKeBank.innerText.trim().replace(/\n/g, " "),
-                        "waktu": tdWaktu.innerText.trim()
-                    };
-
-                    if (dataWD.username === "" || dataWD.username === "Username" || dataWD.username.includes("Total")) {
-                        return;
-                    }
-
-                    let idTransaksi = dataWD.username + "_" + dataWD.waktu;
-                    if (diprosesSesiIni.has(idTransaksi)) return;
-
-                    diprosesSesiIni.add(idTransaksi);
-
-                    let request = fetch(GOOGLE_SHEET_WEBAPP_URL, {
-                        method: "POST",
-                        mode: "no-cors",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(dataWD)
-                    })
-                    .then(() => {
-                        buatNotif("✅ <b>TERCATAT :</b> ID " + dataWD.username + " (" + dataWD.total + ")");
-                    })
-                    .catch(() => {
-                        diprosesSesiIni.delete(idTransaksi);
-                    });
-
-                    promises.push(request);
+            if (adaTeksMerah || apakahUsernamePink) {
+                let idTransaksiMerah = tdUsername.innerText.trim() + "_" + tdWaktu.innerText.trim();
+                if (!diprosesSesiIni.has(idTransaksiMerah)) {
+                    buatNotif("🛑 <b>WatchList :</b> ID " + tdUsername.innerText.trim() + " sedang di <b>TAHAN!</b>", "#dc3545");
+                    diprosesSesiIni.add(idTransaksiMerah);
                 }
+                return;
             }
+
+            let dataWD = {
+                "target_sheet": "AUTOWDEWALLET",
+                "no": tdNo ? tdNo.innerText.trim() : "",
+                "username": tdUsername.innerText.trim(),
+                "total": tdTotal.innerText.trim(),
+                "ke_bank": tdKeBank.innerText.trim().replace(/\n/g, " "),
+                "waktu": tdWaktu.innerText.trim()
+            };
+
+            if (dataWD.username === "" || dataWD.username === "Username" || dataWD.username.includes("Total")) return;
+
+            let idTransaksi = dataWD.username + "_" + dataWD.waktu;
+            if (diprosesSesiIni.has(idTransaksi)) return;
+
+            diprosesSesiIni.add(idTransaksi);
+
+            let request = fetch(GOOGLE_SHEET_WEBAPP_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(dataWD)
+            })
+            .then(() => {
+                buatNotif("✅ <b>TERCATAT :</b> ID " + dataWD.username + " (" + dataWD.total + ")");
+            })
+            .catch(() => {
+                diprosesSesiIni.delete(idTransaksi);
+            });
+
+            promises.push(request);
         });
 
         if (promises.length > 0) {
@@ -154,6 +142,5 @@
     }
 
     setTimeout(jalankanAutopilot, 500);
-    
     setInterval(jalankanAutopilot, 3000);
 })();
