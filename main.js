@@ -66,25 +66,26 @@
     buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw E-Wallet...", "#17a2b8");
 
     function jalankanAutopilot() {
-        let rows = Array.from(document.querySelectorAll("table tbody tr")).filter(row => {
-            return row.offsetParent !== null; 
-        });
-        
-        if (rows.length === 0) return;
+    // Tambahkan pengecekan tbody eksis
+    const tbody = document.querySelector("table tbody");
+    if (!tbody) return;
 
-        let promises = [];
+    let rows = Array.from(tbody.querySelectorAll("tr")).filter(row => row.offsetParent !== null);
+    
+    if (rows.length === 0) return;
 
-        rows.forEach((row) => {
-            let cells = row.querySelectorAll("td");
+    rows.forEach((row) => {
+        let cells = row.querySelectorAll("td");
+        // Gunakan Optional Chaining (?.) untuk keamanan ekstra
+        if (cells.length < 6) return;
 
-            if (cells.length >= 6) {
-                let tdNo = cells[1];
-                let tdUsername = cells[2];
-                let tdTotal = cells[3];
-                let tdKeBank = cells[4];
-                let tdWaktu = cells[5];
+        let tdNo = cells[1];
+        let tdUsername = cells[2];
+        let tdTotal = cells[3];
+        let tdKeBank = cells[4];
+        let tdWaktu = cells[5];
 
-                if (tdUsername && tdTotal && tdKeBank && tdWaktu) {
+        if (!tdUsername || !tdTotal || !tdKeBank || !tdWaktu) return; {
                     let teksBankRaw = tdKeBank.innerText.trim().toUpperCase();
 
                     let apakahEwallet = teksBankRaw.includes("DANA") ||
