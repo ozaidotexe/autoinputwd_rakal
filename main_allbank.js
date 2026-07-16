@@ -60,12 +60,12 @@
     function buatTombolSeaBank() {
         let btn = document.createElement("button");
         function updateTeks() {
-            btn.innerHTML = "SeaBank :" + (SKIP_SEABANK ? "TIDAK TERINPUT" : "TERINPUT");
+            btn.innerHTML = "SeaBank : " + (SKIP_SEABANK ? "TIDAK TERINPUT" : "TERINPUT");
             btn.style.backgroundColor = SKIP_SEABANK ? "#dc3545" : "#28a745";
         }
         btn.style.position = "fixed";
         btn.style.top = "60px";
-        btn.style.right = "20px";
+        btn.style.right = "150px";
         btn.style.zIndex = "99999";
         btn.style.padding = "8px 12px";
         btn.style.color = "white";
