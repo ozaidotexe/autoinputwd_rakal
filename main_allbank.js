@@ -83,7 +83,7 @@
 
     buatTombolSeaBank();
     
-    buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw ALL BANK...", "#28a745");
+    buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw <b>ALL BANK...</b>", "#28a745");
 
     function jalankanAutopilot() {
         const tbody = document.querySelector("table tbody");
