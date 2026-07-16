@@ -64,7 +64,7 @@
             btn.style.backgroundColor = SKIP_SEABANK ? "#dc3545" : "#28a745";
         }
         btn.style.position = "fixed";
-        btn.style.top = "20px";
+        btn.style.top = "15px";
         btn.style.right = "450px";
         btn.style.zIndex = "99999";
         btn.style.padding = "8px 12px";
