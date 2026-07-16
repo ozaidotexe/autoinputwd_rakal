@@ -11,7 +11,7 @@
     if (!isAuthorized()) return; 
     // =========================================================================    
     const extAPI = (typeof browser !== "undefined") ? browser : chrome;
-    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwTOg5RYUNW53TNB3hhjqF8UZ4cxgHKNVdAkNcNJA90X5b-kVsMQB11ehC2eFQxez7x-g/exec";
+    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzSzcTiMrOFPPeA9wfut5XsiN2HvfvOIT_ik7bJw7FeiA2yz8o3k3C45qeYrsWeKmB7jQ/exec";
     const diprosesSesiIni = new Set();
     let notifikasiAktif = [];
 
