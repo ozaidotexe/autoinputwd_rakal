@@ -60,7 +60,7 @@
     function buatTombolSeaBank() {
         let btn = document.createElement("button");
         function updateTeks() {
-            btn.innerHTML = "Matikan SeaBank: " + (SKIP_SEABANK ? "OFF" : "ON");
+            btn.innerHTML = "SeaBank: " + (SKIP_SEABANK ? "OFF" : "ON");
             btn.style.backgroundColor = SKIP_SEABANK ? "#dc3545" : "#28a745";
         }
         btn.style.position = "fixed";
