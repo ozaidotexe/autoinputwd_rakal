@@ -151,16 +151,15 @@
 
             let request = fetch(GOOGLE_SHEET_WEBAPP_URL, {
                 method: "POST",
-                mode: "no-cors", // <--- INI KUNCINYA (Mengabaikan CORS browser)
-                headers: { "Content-Type": "text/plain" },
+                mode: "no-cors", // Menggunakan no-cors kembali
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(dataWD)
             })
             .then(() => {
-                buatNotif("✅ <b>TERKIRIM :</b> ID " + dataWD.username + " (" + dataWD.total + ")");
+                buatNotif("✅ <b>TERCATAT :</b> ID " + dataWD.username + " (" + dataWD.total + ")");
             })
-            .catch((err) => {
-                buatNotif("❌ <b>ERROR KONEKSI :</b> Gagal menghubungi server", "#dc3545");
-                diprosesSesiIni.delete(idTransaksi); // Hapus dari cache agar bisa di-retry jika benar-benar gagal
+            .catch(() => {
+                diprosesSesiIni.delete(idTransaksi);
             });
             promises.push(request);
         });
