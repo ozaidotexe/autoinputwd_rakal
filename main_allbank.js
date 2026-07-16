@@ -12,6 +12,7 @@
     // =========================================================================    
 
     const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwQ7CU0K2LnmWe-BQaO6e48gg7i5kZKP7jPbhvcuSImUyB_s9YUTIDSFqzYaeqnC3GX_A/exec";
+    let SKIP_SEABANK = true;
     const diprosesSesiIni = new Set();
     let notifikasiAktif = [];
   
@@ -54,13 +55,38 @@
             notif.style.bottom = posisiBottom + "px";
         });
     }
-  
+
+    function buatTombolSeaBank() {
+        let btn = document.createElement("button");
+        function updateTeks() {
+            btn.innerHTML = "SeaBank: " + (SKIP_SEABANK ? "OFF" : "ON");
+            btn.style.backgroundColor = SKIP_SEABANK ? "#dc3545" : "#28a745";
+        }
+        btn.style.position = "fixed";
+        btn.style.top = "60px";
+        btn.style.right = "20px";
+        btn.style.zIndex = "99999";
+        btn.style.padding = "8px 12px";
+        btn.style.color = "white";
+        btn.style.border = "none";
+        btn.style.borderRadius = "5px";
+        btn.style.cursor = "pointer";
+        updateTeks();
+        btn.onclick = () => {
+            SKIP_SEABANK = !SKIP_SEABANK;
+            updateTeks();
+        };
+        document.body.appendChild(btn);
+    }
+
+    buatTombolSeaBank();
+    
     buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw ALL BANK...", "#28a745");
 
     function jalankanAutopilot() {
         const tbody = document.querySelector("table tbody");
         if (!tbody) return;
-
+            
         let rows = Array.from(tbody.querySelectorAll("tr")).filter(row => row.offsetParent !== null);
         if (rows.length === 0) return;
 
@@ -79,9 +105,13 @@
             if (!tdUsername || !tdTotal || !tdKeBank || !tdWaktu) return;
 
             let teksBankRaw = tdKeBank.innerText.trim().toUpperCase();
-           const listEwallet = ["DANA", "OVO", "GOPAY", "LINKAJA", "SHOPEEPAY"];
-            let apakahEwallet = listEwallet.some(ewallet => teksBankRaw.includes(ewallet));
             
+            if (SKIP_SEABANK && teksBankRaw.includes("SEABANK")) {
+                return; 
+            }
+            
+            const listEwallet = ["DANA", "OVO", "GOPAY", "LINKAJA", "SHOPEEPAY"];
+            let apakahEwallet = listEwallet.some(ewallet => teksBankRaw.includes(ewallet));
             if (apakahEwallet) return; // Ini artinya: "Jika INI E-Wallet, BERHENTI" (Supaya cuma sisa bank saja)
 
             let adaTeksMerah = tdKeBank.querySelector("[style*='color: red']") ||
