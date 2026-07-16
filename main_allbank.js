@@ -65,7 +65,7 @@
         }
         btn.style.position = "fixed";
         btn.style.top = "60px";
-        btn.style.right = "150px";
+        btn.style.right = "200px";
         btn.style.zIndex = "99999";
         btn.style.padding = "8px 12px";
         btn.style.color = "white";
