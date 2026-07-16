@@ -151,14 +151,23 @@
 
             let request = fetch(GOOGLE_SHEET_WEBAPP_URL, {
                 method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
+                // mode: "no-cors" DISINGKIRKAN agar bisa membaca respon JSON
+                headers: { "Content-Type": "text/plain" }, // Gunakan text/plain untuk menghindari preflight OPTIONS yang rumit
                 body: JSON.stringify(dataWD)
             })
-            .then(() => {
-                buatNotif("✅ <b>TERCATAT :</b> ID " + dataWD.username + " (" + dataWD.total + ")");
+            .then(response => response.json()) // Parsing respon JSON dari doPost
+            .then((res) => {
+                if (res.status === "SUCCESS") {
+                    buatNotif("✅ <b>TERCATAT :</b> ID " + dataWD.username + " (" + dataWD.total + ")");
+                } else if (res.status === "DUPLICATE") {
+                    buatNotif("⚠️ <b>DUPLIKAT :</b> ID " + dataWD.username + " sudah ada di sheet!", "#ffc107");
+                } else {
+                    buatNotif("🛑 <b>GAGAL :</b> " + res.message, "#dc3545");
+                    diprosesSesiIni.delete(idTransaksi); // Hapus dari cache agar bisa di-retry nanti
+                }
             })
-            .catch(() => {
+            .catch((err) => {
+                buatNotif("❌ <b>ERROR KONEKSI :</b> Gagal menghubungi server", "#dc3545");
                 diprosesSesiIni.delete(idTransaksi);
             });
 
