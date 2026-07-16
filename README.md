@@ -1,3 +1,29 @@
+# Autopilot Input WD ALL BANK (Non-E-Wallet) using at RAKAL
+> **Sistem Otomatisasi Input Data Penarikan Dana (Withdrawal) Real-Time**  
+> Dikembangkan oleh **Lord Ozai** untuk mengotomatiskan pencatatan transaksi penarikan dana dari dasbor admin langsung ke Google Sheets.
+
+Sistem ini terdiri dari dua komponen utama:
+1. **Frontend (Chrome Extension / Content Script):** Berjalan di sisi browser dasbor admin untuk memindai tabel transaksi secara real-time, menyaring metode pembayaran (mengabaikan E-Wallet), menguji validitas akun, dan mengirimkannya ke Google Sheets.
+2. **Backend (Google Apps Script):** Menerima data dari frontend, mencegah penulisan data ganda (*anti-duplicate*), mengelola antrean penginputan (*race condition prevention*), serta menyusun data secara rapi di dalam Google Sheets.
+
+---
+
+## 📂 Struktur File Proyek
+
+Berikut adalah daftar file yang menyusun sistem ini beserta fungsinya masing-masing:
+
+| Nama File | Jenis | Peran / Deskripsi |
+| :--- | :--- | :--- |
+| `manifest.json` | Konfigurasi | Manifest Ekstensi Chrome (Manifest V3) untuk mendaftarkan izin domain, tab aktif, dan mendefinisikan content script yang berjalan otomatis pada halaman target. |
+| `content_allbank.js` | Loader Ekstensi | Script perantara yang memverifikasi otoritas pengguna ("ALVIN CS") dan mengunduh (fetch) script eksekusi utama secara dinamis dari repositori GitHub secara aman. |
+| `main_allbank.js` *(Remote)* | Logika Utama | Script inti yang memproses pemindaian tabel, menyaring E-Wallet, menyediakan tombol toggle SeaBank, mendeteksi *Watchlist* (merah/pink), dan mengurus pengiriman data (*fetch*). |
+| `doPost.gs` | Backend GAS | Script Google Apps Script yang dipasang pada Google Sheets sebagai Web App untuk menangani penyimpanan, pengecekan duplikat, pencarian celah baris kosong, dan penguncian antrean data. |
+
+---
+
+## 🛠️ Alur Kerja Sistem (Workflow)
+
+
 # Auto Input WD E-Wallet (using at RAKAL)
 
 **Auto Input WD E-Wallet** adalah ekstensi peramban (*browser extension*) yang dirancang khusus untuk mengotomatiskan proses rekapitulasi data penarikan (*withdrawal*) dari panel target ke Google Sheets secara *real-time*.
