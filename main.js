@@ -11,7 +11,7 @@
     if (!isAuthorized()) return; 
     // =========================================================================    
     const extAPI = (typeof browser !== "undefined") ? browser : chrome;
-    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzSzcTiMrOFPPeA9wfut5XsiN2HvfvOIT_ik7bJw7FeiA2yz8o3k3C45qeYrsWeKmB7jQ/exec";
+    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwTOg5RYUNW53TNB3hhjqF8UZ4cxgHKNVdAkNcNJA90X5b-kVsMQB11ehC2eFQxez7x-g/exec";
     const diprosesSesiIni = new Set();
     let notifikasiAktif = [];
 
@@ -122,17 +122,12 @@
 
             let request = fetch(GOOGLE_SHEET_WEBAPP_URL, {
                 method: "POST",
-                mode: "cors",
+                mode: "no-cors",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(dataWD)
             })
-            .then(response => response.json()) // Tambahkan ini
-            .then(data => {
-                if (data.status === "SUCCESS") {
-                    buatNotif("✅ <b>TERCATAT :</b> ID " + dataWD.username + " (" + dataWD.total + ")");
-                } else if (data.status === "DUPLICATE") {
-                    console.warn("Data sudah ada, skip:", dataWD.username);
-                }
+            .then(() => {
+                buatNotif("✅ <b>TERCATAT :</b> ID " + dataWD.username + " (" + dataWD.total + ")");
             })
             .catch(() => {
                 diprosesSesiIni.delete(idTransaksi);
