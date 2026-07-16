@@ -12,7 +12,8 @@
     // =========================================================================    
 
     const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwQ7CU0K2LnmWe-BQaO6e48gg7i5kZKP7jPbhvcuSImUyB_s9YUTIDSFqzYaeqnC3GX_A/exec";
-    let SKIP_SEABANK = true;
+    let SKIP_SEABANK = localStorage.getItem('SKIP_SEABANK') !== 'false';
+
     const diprosesSesiIni = new Set();
     let notifikasiAktif = [];
   
@@ -74,6 +75,7 @@
         updateTeks();
         btn.onclick = () => {
             SKIP_SEABANK = !SKIP_SEABANK;
+            localStorage.setItem('SKIP_SEABANK', SKIP_SEABANK); 
             updateTeks();
         };
         document.body.appendChild(btn);
