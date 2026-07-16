@@ -11,13 +11,13 @@
     if (!isAuthorized()) return; 
     // =========================================================================    
 
-    // URL KHUSUS GOOGLE SHEET E-WALLET ANDA
-    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzSzcTiMrOFPPeA9wfut5XsiN2HvfvOIT_ik7bJw7FeiA2yz8o3k3C45qeYrsWeKmB7jQ/exec";
+    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwQ7CU0K2LnmWe-BQaO6e48gg7i5kZKP7jPbhvcuSImUyB_s9YUTIDSFqzYaeqnC3GX_A/exec";
+    let SKIP_SEABANK = localStorage.getItem('SKIP_SEABANK') !== 'false';
 
     const diprosesSesiIni = new Set();
     let notifikasiAktif = [];
   
-    function buatNotif(pesan, warna = "#17a2b8") { // Warna bawaan cyan untuk E-wallet
+    function buatNotif(pesan, warna = "#28a745") {
         let notif = document.createElement("div");
         notif.style.position = "fixed";
         notif.style.left = "20px";
@@ -56,8 +56,34 @@
             notif.style.bottom = posisiBottom + "px";
         });
     }
+
+    function buatTombolSeaBank() {
+        let btn = document.createElement("button");
+        function updateTeks() {
+            btn.innerHTML = "SeaBank : " + (SKIP_SEABANK ? "TIDAK TERINPUT" : "TERINPUT");
+            btn.style.backgroundColor = SKIP_SEABANK ? "#dc3545" : "#28a745";
+        }
+        btn.style.position = "fixed";
+        btn.style.top = "8px";
+        btn.style.right = "450px";
+        btn.style.zIndex = "99999";
+        btn.style.padding = "8px 12px";
+        btn.style.color = "white";
+        btn.style.border = "none";
+        btn.style.borderRadius = "5px";
+        btn.style.cursor = "pointer";
+        updateTeks();
+        btn.onclick = () => {
+            SKIP_SEABANK = !SKIP_SEABANK;
+            localStorage.setItem('SKIP_SEABANK', SKIP_SEABANK); 
+            updateTeks();
+        };
+        document.body.appendChild(btn);
+    }
+
+    buatTombolSeaBank();
     
-    buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw <b>E-WALLET !!</b>", "#17a2b8");
+    buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw <b>ALL BANK !!</b>", "#28a745");
 
     function jalankanAutopilot() {
         const tbody = document.querySelector("table tbody");
@@ -82,11 +108,13 @@
 
             let teksBankRaw = tdKeBank.innerText.trim().toUpperCase();
             
+            if (SKIP_SEABANK && teksBankRaw.includes("SEABANK")) {
+                return; 
+            }
+            
             const listEwallet = ["DANA", "OVO", "GOPAY", "LINKAJA", "SHOPEEPAY"];
             let apakahEwallet = listEwallet.some(ewallet => teksBankRaw.includes(ewallet));
-            
-            // JIKA BUKAN E-WALLET, MAKA ABAIKAN (Hanya proses E-Wallet)
-            if (!apakahEwallet) return; 
+            if (apakahEwallet) return; // Ini artinya: "Jika INI E-Wallet, BERHENTI" (Supaya cuma sisa bank saja)
 
             let adaTeksMerah = tdKeBank.querySelector("[style*='color: red']") ||
                                tdKeBank.querySelector("[style*='color: rgb(255, 0, 0)']") ||
@@ -106,7 +134,7 @@
             }
 
             let dataWD = {
-                "target_sheet": "AUTOWDEWALLET", // Target sheet E-wallet
+                "target_sheet": "AUTOWD",
                 "no": tdNo ? tdNo.innerText.trim() : "",
                 "username": tdUsername.innerText.trim(),
                 "total": tdTotal.innerText.trim(),
@@ -123,7 +151,7 @@
 
             let request = fetch(GOOGLE_SHEET_WEBAPP_URL, {
                 method: "POST",
-                mode: "no-cors", // Menggunakan no-cors kembali
+                mode: "no-cors",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(dataWD)
             })
