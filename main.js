@@ -10,12 +10,14 @@
 
     if (!isAuthorized()) return; 
     // =========================================================================    
-    const extAPI = (typeof browser !== "undefined") ? browser : chrome;
-    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzSzcTiMrOFPPeA9wfut5XsiN2HvfvOIT_ik7bJw7FeiA2yz8o3k3C45qeYrsWeKmB7jQ/exec";
+
+    // URL KHUSUS GOOGLE SHEET E-WALLET ANDA
+    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwTOg5RYUNW53TNB3hhjqF8UZ4cxgHKNVdAkNcNJA90X5b-kVsMQB11ehC2eFQxez7x-g/exec";
+
     const diprosesSesiIni = new Set();
     let notifikasiAktif = [];
-
-    function buatNotif(pesan, warna = "#28a745") {
+  
+    function buatNotif(pesan, warna = "#17a2b8") { // Warna bawaan cyan untuk E-wallet
         let notif = document.createElement("div");
         notif.style.position = "fixed";
         notif.style.left = "20px";
@@ -54,13 +56,13 @@
             notif.style.bottom = posisiBottom + "px";
         });
     }
-
+    
     buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw <b>E-WALLET !!</b>", "#17a2b8");
 
     function jalankanAutopilot() {
         const tbody = document.querySelector("table tbody");
         if (!tbody) return;
-
+            
         let rows = Array.from(tbody.querySelectorAll("tr")).filter(row => row.offsetParent !== null);
         if (rows.length === 0) return;
 
@@ -79,13 +81,12 @@
             if (!tdUsername || !tdTotal || !tdKeBank || !tdWaktu) return;
 
             let teksBankRaw = tdKeBank.innerText.trim().toUpperCase();
-            let apakahEwallet = teksBankRaw.includes("DANA") ||
-                                teksBankRaw.includes("OVO") ||
-                                teksBankRaw.includes("GOPAY") ||
-                                teksBankRaw.includes("LINKAJA") ||
-                                teksBankRaw.includes("SHOPEEPAY");
-
-            if (!apakahEwallet) return;
+            
+            const listEwallet = ["DANA", "OVO", "GOPAY", "LINKAJA", "SHOPEEPAY"];
+            let apakahEwallet = listEwallet.some(ewallet => teksBankRaw.includes(ewallet));
+            
+            // JIKA BUKAN E-WALLET, MAKA ABAIKAN (Hanya proses E-Wallet)
+            if (!apakahEwallet) return; 
 
             let adaTeksMerah = tdKeBank.querySelector("[style*='color: red']") ||
                                tdKeBank.querySelector("[style*='color: rgb(255, 0, 0)']") ||
@@ -105,7 +106,7 @@
             }
 
             let dataWD = {
-                "target_sheet": "AUTOWDEWALLET",
+                "target_sheet": "AUTOWDEWALLET", // Target sheet E-wallet
                 "no": tdNo ? tdNo.innerText.trim() : "",
                 "username": tdUsername.innerText.trim(),
                 "total": tdTotal.innerText.trim(),
@@ -122,7 +123,7 @@
 
             let request = fetch(GOOGLE_SHEET_WEBAPP_URL, {
                 method: "POST",
-                mode: "no-cors",
+                mode: "no-cors", // Menggunakan no-cors kembali
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(dataWD)
             })
