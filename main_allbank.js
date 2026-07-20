@@ -11,7 +11,7 @@
     if (!isAuthorized()) return; 
     // =========================================================================    
 
-    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbwQ7CU0K2LnmWe-BQaO6e48gg7i5kZKP7jPbhvcuSImUyB_s9YUTIDSFqzYaeqnC3GX_A/exec";
+    const GOOGLE_SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbx5UapyfTKQ-0MfjK4klMP2j8dpU5HJ36ePP0eRbw-2xgOwzzkm51caa3-Ux8p3Ia_q5A/exec";
     let SKIP_SEABANK = localStorage.getItem('SKIP_SEABANK') !== 'false';
 
     const diprosesSesiIni = new Set();
