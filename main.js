@@ -67,19 +67,20 @@
     // Membuat elemen tombol secara visual di layar
     let btnSakelar = document.createElement("button");
     btnSakelar.style.position = "fixed";
-    btnSakelar.style.top = "8px"; // Menyejajarkan tinggi dengan top navbar
-    btnSakelar.style.right = "890px"; // Menggeser posisi tepat di sebelah kiri SeaBank (bisa disesuaikan nilainya)
-    btnSakelar.style.left = "auto";
-    btnSakelar.style.zIndex = "999999";
-    btnSakelar.style.padding = "8px 12px";
-    btnSakelar.style.fontSize = "14px";
-    btnSakelar.style.fontWeight = "bold";
-    btnSakelar.style.color = "white";
-    btnSakelar.style.border = "none";
-    btnSakelar.style.borderRadius = "5px";
-    btnSakelar.style.cursor = "pointer";
-    btnSakelar.style.boxShadow = "0px 2px 5px rgba(0,0,0,0.2)";
-    btnSakelar.style.fontFamily = "Arial, sans-serif";
+        btnSakelar.style.top = "12px";
+        btnSakelar.style.right = "700px"; // Ubah angka ini untuk pasin posisi (Naik = Kiri, Turun = Kanan)
+        btnSakelar.style.left = "auto";
+        btnSakelar.style.zIndex = "999999";
+        btnSakelar.style.padding = "8px 12px";
+        btnSakelar.style.fontSize = "14px";
+        btnSakelar.style.fontWeight = "bold";
+        btnSakelar.style.color = "white";
+        btnSakelar.style.border = "none";
+        btnSakelar.style.borderRadius = "5px";
+        btnSakelar.style.cursor = "pointer";
+        btnSakelar.style.boxShadow = "0px 2px 5px rgba(0,0,0,0.2)";
+        btnSakelar.style.fontFamily = "Arial, sans-serif";
+        btnSakelar.style.transition = "all 0.2s ease";
 
     // Fungsi untuk memperbarui tampilan warna & teks tombol
     function updateTampilanTombol() {
