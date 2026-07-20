@@ -86,7 +86,7 @@
     function updateTampilanTombol() {
         if (modeSakelar === "ALLBANK") {
             btnSakelar.innerHTML = "🚫 MODE : <b>ALL BANK</b>";
-            btnSakelar.style.backgroundColor = "#e67e22"; // Warna Oranye (Peringatan DANA Libur)
+            btnSakelar.style.backgroundColor = "#3b0511"; // Warna Merah Gelap (Peringatan DANA Libur)
         } else {
             btnSakelar.innerHTML = "✅ MODE : <b>SEMUA E-WALLET</b>";
             btnSakelar.style.backgroundColor = "#074f17"; // Warna Hijau (Semua Masuk)
