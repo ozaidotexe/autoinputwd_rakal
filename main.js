@@ -100,7 +100,7 @@
             buatNotif("⚠️ <b>Mode ALLBANK Aktif:</b> Transaksi DANA akan dilewati!", "#e67e22");
         } else {
             modeSakelar = "SEMUA";
-            buatNotif("✅ <b>Mode SEMUA Aktif:</b> Semua E-Wallet termasuk DANA akan diproses!", "#2ecc71");
+            buatNotif("✅ <b>Mode SEMUA Aktif:</b> Semua E-Wallet termasuk DANA akan diproses!", "#074f17");
         }
         localStorage.setItem("mode_ewallet", modeSakelar); // Simpan status agar tidak hilang saat di-refresh
         updateTampilanTombol();
