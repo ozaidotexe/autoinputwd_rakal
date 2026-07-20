@@ -68,7 +68,7 @@
     let btnSakelar = document.createElement("button");
     btnSakelar.style.position = "fixed";
     btnSakelar.style.top = "8px"; // Menyejajarkan tinggi dengan top navbar
-    btnSakelar.style.right = "590px"; // Menggeser posisi tepat di sebelah kiri SeaBank (bisa disesuaikan nilainya)
+    btnSakelar.style.right = "700px"; // Menggeser posisi tepat di sebelah kiri SeaBank (bisa disesuaikan nilainya)
     btnSakelar.style.left = "auto";
     btnSakelar.style.zIndex = "999999";
     btnSakelar.style.padding = "8px 12px";
