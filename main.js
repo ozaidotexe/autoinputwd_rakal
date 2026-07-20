@@ -56,7 +56,7 @@
         });
     }
     
-    buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw <b>E-WALLET !!</b>", "#17a2b8");
+    buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw <b>E-WALLET !!</b>", "#173ab8");
 
     // =========================================================================
     // --- FITUR BARU: MEMBUAT TOMBOL SAKELAR DI EKSTENSI ---
