@@ -61,7 +61,7 @@
         let btn = document.createElement("button");
         function updateTeks() {
             btn.innerHTML = "SeaBank : " + (SKIP_SEABANK ? "<b>TIDAK TERINPUT</b>" : "<b>TERINPUT</b> ✅");
-            btn.style.backgroundColor = SKIP_SEABANK ? "#dc3545" : "#28a745";
+            btn.style.backgroundColor = SKIP_SEABANK ? "#3b0511" : "#082b12";
         }
         btn.style.position = "fixed";
         btn.style.top = "8px";
