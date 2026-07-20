@@ -56,7 +56,7 @@
         });
     }
     
-    buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw <b>E-WALLET !!</b>", "#17a2b8");
+    buatNotif("🔄<b>AUTO ON !!</b> Checking Withdraw <b>E-WALLET !!</b>", "#174db8");
 
     // Fungsi utama kontrol alur filter
     function jalankanAutopilot() {
