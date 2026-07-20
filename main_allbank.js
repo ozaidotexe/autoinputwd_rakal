@@ -60,7 +60,7 @@
     function buatTombolSeaBank() {
         let btn = document.createElement("button");
         function updateTeks() {
-            btn.innerHTML = "SeaBank : " + (SKIP_SEABANK ? "TIDAK TERINPUT" : "TERINPUT");
+            btn.innerHTML = "SeaBank : " + (SKIP_SEABANK ? "<b>TIDAK TERINPUT</b>" : "<b>TERINPUT</b>");
             btn.style.backgroundColor = SKIP_SEABANK ? "#dc3545" : "#28a745";
         }
         btn.style.position = "fixed";
