@@ -85,10 +85,10 @@
     // Fungsi untuk memperbarui tampilan warna & teks tombol
     function updateTampilanTombol() {
         if (modeSakelar === "ALLBANK") {
-            btnSakelar.innerHTML = "🚫 MODE: ALL BANK (DANA OFF)";
+            btnSakelar.innerHTML = "🚫 MODE: <b>ALL BANK</b> (DANA OFF)";
             btnSakelar.style.backgroundColor = "#e67e22"; // Warna Oranye (Peringatan DANA Libur)
         } else {
-            btnSakelar.innerHTML = "✅ MODE: SEMUA (DANA ON)";
+            btnSakelar.innerHTML = "✅ MODE: <b>SEMUA EWALLET</b> (DANA ON)";
             btnSakelar.style.backgroundColor = "#552ecc"; // Warna Hijau (Semua Masuk)
         }
     }
