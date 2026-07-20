@@ -88,7 +88,7 @@
             btnSakelar.innerHTML = "🚫 MODE: <b>ALL BANK</b>";
             btnSakelar.style.backgroundColor = "#e67e22"; // Warna Oranye (Peringatan DANA Libur)
         } else {
-            btnSakelar.innerHTML = "✅ MODE: <b>SEMUA EWALLET</b>";
+            btnSakelar.innerHTML = "✅ MODE: <b>SEMUA E-WALLET</b>";
             btnSakelar.style.backgroundColor = "#552ecc"; // Warna Hijau (Semua Masuk)
         }
     }
