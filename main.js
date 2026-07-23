@@ -161,7 +161,7 @@
             if (adaTeksMerah || apakahUsernamePink) {
                 let idTransaksiMerah = tdUsername.innerText.trim() + "_" + tdWaktu.innerText.trim();
                 if (!diprosesSesiIni.has(idTransaksiMerah)) {
-                    buatNotif("🛑 <b>WatchList :</b> ID " + tdUsername.innerText.trim() + " sedang di <b>TAHAN!</b>", "#47090f");
+                    buatNotif("🛑 <b>WatchList :</b> ID " + tdUsername.innerText.trim() + " sedang di <b>TAHAN!</b>", "#330d11");
                     diprosesSesiIni.add(idTransaksiMerah);
                 }
                 return;
