@@ -16,7 +16,7 @@
     const diprosesSesiIni = new Set();
     let notifikasiAktif = [];
   
-    function buatNotif(pesan, warna = "#17a2b8") {
+    function buatNotif(pesan, warna = "#1f464d") {
         let notif = document.createElement("div");
         notif.style.position = "fixed";
         notif.style.left = "20px";
